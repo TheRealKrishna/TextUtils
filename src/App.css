@@ -1,0 +1,11 @@
+.darkMode {
+    color: White !important;
+    background-color: rgb(29, 29, 29) !important;
+}
+.blackDarkMode {
+    color: white !important;
+    background-color: rgb(15, 15, 15) !important;
+}
+.darkMode::placeholder{
+    color: white;
+}
