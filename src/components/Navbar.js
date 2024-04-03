@@ -1,25 +1,25 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link, useLocation } from 'react-router-dom'
 import { useCookies } from 'react-cookie';
 
 
 
-export default function Navbar(props){
+export default function Navbar(props) {
     const [cookies, setCookie] = useCookies(['currentMode']);
     const [currentMode, setCurrentMode] = useState("light")
     useEffect(() => {
-      if (cookies['currentMode']) {
-        setCurrentMode(cookies['currentMode']);
-      }
-      else {
-        setCookie('currentMode', currentMode, { path: '/' });
-      }
+        if (cookies['currentMode']) {
+            setCurrentMode(cookies['currentMode']);
+        }
+        else {
+            setCookie('currentMode', currentMode, { path: '/' });
+        }
     }, [cookies, currentMode, setCookie]);
     let blackElementsForDarkMode = useState([])
     let elementsForDarkMode = useState([])
-    useEffect(()=>{
+    useEffect(() => {
         elementsForDarkMode.pop()
         elementsForDarkMode.pop()
         blackElementsForDarkMode.pop()
@@ -38,8 +38,8 @@ export default function Navbar(props){
 
     const [darkModeIcon, setDarkModeIcon] = useState("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAihJREFUSEvd1svrTVEUB/DPL4+UATNlZMSQRPJ+lreEIWWk/AVGwsR/YGBmZoY888ojb4mUgRGKqRTl/Whpnzqd33nsc7u6ZdXt3rv32uu711p7fdcaMyIZGxGuQYFnYW+69Am87uvAoMCrcCOBrcbN/wJ4JabhbI03OR5vwwfcrotGU6jX4DwmYguuVA5Px7y09iwBlFXW4xy+YxNuVcGbgNfhAibjCyKPDzLzuAKXMQXfsBnXcoFDbytO4zM24G7pcFx4Tvr/Er9Le0tLwBHui31CXejuwjvcTwth9AAiFVPT2qfk0VE8TmtLMCNdvDZQfcppP47RWPu/sBsnc1KSC7woed2l/xVzEeFvlS5DxeF7WNxlLO3Hu9jRpVsGDhqMTyFFmcxMee6yVeyH11H/8V0uu9gPav1Lr2XgwzhUsl5QYTyoO7moSS/C/RxloomtIwicLOCFeNQTeAGe5AI3hTrCFtSXK/G6I8Qfc0PdZvh6qt0c8GC8oNmhvOr5KdwTOuz9SBz+YljAYWcfjrcY/Ik9wyKQnXiLhwlwWXqVaysXiPAexNO0HpUQlHmq6aJtBBJ5OpOaxMZKSc1G1HfIK7wpASzHpdSdotHE73GS2xajv9Y29Bqb5bYYLbX2bBNwkEcMApNSP71aAegaBKKNxuQSg0AAjyOgtlDHzaOGY5KoSs7osx3v+44+XdWQAzyUOh7E438CPLKBvisVnfu5g0Cnob4KfwBXiXUfhZxBjAAAAABJRU5ErkJggg==")
 
-    function toogleDarkMode(){
-        if(currentMode === "light"){
+    function toogleDarkMode() {
+        if (currentMode === "light") {
             document.title = "Text Utils - Dark Mode";
             setCurrentMode("dark");
             setCookie('currentMode', "dark", { path: '/' });
@@ -50,9 +50,9 @@ export default function Navbar(props){
             elementsForDarkMode.forEach(element => {
                 element.classList.add("darkMode");
             });
-            
+
         }
-        else if(currentMode === "dark"){
+        else if (currentMode === "dark") {
             document.title = "Text Utils - Light Mode";
             setCurrentMode("light");
             setCookie('currentMode', "light", { path: '/' });
@@ -68,7 +68,7 @@ export default function Navbar(props){
     const location = useLocation();
 
     useEffect(() => {
-        if(currentMode === "dark"){
+        if (currentMode === "dark") {
             document.title = "Text Utils - Dark Mode";
             setCurrentMode("dark");
             setCookie('currentMode', "dark", { path: '/' });
@@ -82,44 +82,29 @@ export default function Navbar(props){
         }
     }, [location, blackElementsForDarkMode, currentMode, elementsForDarkMode, setCookie]);
 
-    return(
-    <>
-        <link rel="stylesheet" href="boxicons.min.css"/>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-            <a className="navbar-brand" href="/">{props.title}</a>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                <Link className="nav-link active" to="/">Home</Link>
-                </li>
-                <li className="nav-item">
-                <Link className="nav-link" to="/about">About</Link>
-                </li>
-                <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown
-                </a>
-                <ul className="dropdown-menu">
-                    <li><a className="dropdown-item" href="/">Action</a></li>
-                    <li><a className="dropdown-item" href="/">Another action</a></li>
-                    <li><hr className="dropdown-divider"/></li>
-                    <li><a className="dropdown-item" href="/">Something else here</a></li>
-                </ul>
-                </li>
-            </ul>
-            <button className="btn btn mx-3 btn-outline" onClick={toogleDarkMode}><img src={darkModeIcon}/></button>
-            <form className="d-flex" role="search">
-                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                <button className="btn btn-outline-primary" type="submit">Search</button>
-            </form>
-            </div>
-        </div>
-        </nav>
-    </>
+    return (
+        <>
+            <link rel="stylesheet" href="boxicons.min.css" />
+            <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                <div className="container-fluid">
+                    <a className="navbar-brand" href="/">{props.title}</a>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li className="nav-item">
+                                <Link className="nav-link active" to="/">Home</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/about">About</Link>
+                            </li>
+                        </ul>
+                        <button className="btn btn mx-3 btn-outline" onClick={toogleDarkMode}><img src={darkModeIcon} /></button>
+                    </div>
+                </div>
+            </nav>
+        </>
     )
 }
 
